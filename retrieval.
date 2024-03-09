@@ -1,0 +1,66 @@
+// src/pages/Index.jsx
+import React from "react";
+import { Box, Text, VStack, HStack, IconButton, Input, Button, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, FormControl, FormLabel } from "@chakra-ui/react";
+import { FaPlus, FaTrash } from "react-icons/fa";
+
+const Index = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  return (
+    <Box p={4}>
+      <VStack spacing={4}>
+        <Text fontSize="2xl" fontWeight="bold">
+          Car Parts Recorder
+        </Text>
+        <Button leftIcon={<FaPlus />} colorScheme="teal" variant="solid" onClick={onOpen}>
+          Add New Part
+        </Button>
+      </VStack>
+      {/* Modal to add a new car part */}
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Add a New Car Part</ModalHeader>
+          <ModalBody>
+            <FormControl id="part-name" isRequired>
+              <FormLabel>Part Name</FormLabel>
+              <Input placeholder="Enter the car part name" />
+            </FormControl>
+            <FormControl id="part-number" mt={4}>
+              <FormLabel>Part Number</FormLabel>
+              <Input placeholder="Enter the car part number" />
+            </FormControl>
+            <FormControl id="part-description" mt={4}>
+              <FormLabel>Description</FormLabel>
+              <Input placeholder="Enter a brief description of the part" />
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Save
+            </Button>
+            <Button variant="ghost" onClick={onClose}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      {/* List of recorded car parts */}
+      <VStack mt={8} align="stretch">
+        {/* This part would be mapped from a state holding the list of parts */}
+        <HStack key={"part_id"} p={4} borderWidth="1px" borderRadius="lg" alignItems="center">
+          <VStack align="start">
+            <Text fontWeight="bold">Part Name: Engine</Text>
+            <Text>Part Number: 123ABC</Text>
+            <Text>Description: The main engine block</Text>
+          </VStack>
+          <Spacer />
+          <IconButton aria-label="Delete part" icon={<FaTrash />} colorScheme="red" variant="outline" onClick={() => console.log("Delete part")} />
+        </HStack>
+        {/* You would map through your parts array here */}
+      </VStack>
+    </Box>
+  );
+};
+
+export default Index;
